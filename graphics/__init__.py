@@ -339,7 +339,7 @@ class GraphWin(tk.Canvas):
         self.lastKey = ""
         while self.lastKey == "":
             self.update()
-            if self.isClosed(): raise GraphicsError("getKey in closed window")
+            if self.isClosed(): return -1#raise GraphicsError("getKey in closed window")
             time.sleep(.1) # give up thread
 
         key = self.lastKey
