@@ -1,4 +1,5 @@
 from graphics import *
+from mazeGen import generate_maze
 
 
 class maze:
@@ -6,10 +7,10 @@ class maze:
 
     def __init__(self, maze_height, maze_width):
         self.__window = GraphWin(width = 500, height = 500) # create a window
-        self.__window.setCoords(0, 0, maze_width, maze_height) # set the coordinates of the window; bottom left is (0, 0) and top right is (100, 100)
+        self.__window.setCoords(0, 0, maze_width * 10, maze_height * 10) # set the coordinates of the window; bottom left is (0, 0) and top right is (100, 100)
 
 
-        background = Rectangle(Point(0,0),Point(100,100))
+        background = Rectangle(Point(0,0),Point(maze_width * 10,maze_height * 10))
         background.setFill('gray')
         background.draw(self.__window)
 
@@ -17,7 +18,8 @@ class maze:
         self.__squares = list()
 
         y_axis = 100
-        with open('Maze.txt', 'r') as maze_text:
+        generate_maze('Maze3.txt', maze_height, maze_width)
+        with open('Maze3.txt', 'r') as maze_text:
             for row in maze_text:
                 x_axis = 0
                 row_squares = list()
