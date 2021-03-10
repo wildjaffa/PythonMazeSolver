@@ -84,10 +84,10 @@ class maze:
 
     def __check_movement_ability(self):
         current_row = self.__string_list[self.maze_height - self.player_y]
-        self.can_move_west = self.player_x > 0 and current_row[self.player_x - 1] == '0'
-        self.can_move_east = self.player_x < self.maze_width - 1 and current_row[self.player_x + 1] == '0'
-        self.can_move_north = self.player_y < self.maze_height and self.__string_list[self.maze_height - self.player_y - 1][self.player_x] == '0'
-        self.can_move_south = self.player_y > 0 and self.__string_list[self.maze_height - self.player_y + 1][self.player_x] == '0'
+        self.can_move_west = bool(self.player_x > 0 and current_row[self.player_x - 1] == '0')
+        self.can_move_east = bool(self.player_x < self.maze_width - 1 and current_row[self.player_x + 1] == '0')
+        self.can_move_north = bool(self.player_y < self.maze_height and self.__string_list[self.maze_height - self.player_y - 1][self.player_x] == '0')
+        self.can_move_south = bool(self.player_y > 0 and self.__string_list[self.maze_height - self.player_y + 1][self.player_x] == '0')
         self.has_won = self.player_x == self.maze_width // 2 and self.player_y == self.maze_height
 
     def get_key_stroke(self):
