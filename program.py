@@ -17,7 +17,7 @@ while not response.lower() == 'y' and not response.lower() == 'n':
 
 mazeWindow = maze(maze_size)
 
-if response == 'n:':
+if response == 'n':
     while not mazeWindow.has_won and not mazeWindow.has_quit():
         key = mazeWindow.get_key_stroke()
         if key == 'Left':

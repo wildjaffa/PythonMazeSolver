@@ -5,7 +5,7 @@ from mazeGen import maze_builder
 class maze:
 
 
-    def __init__(self, size):
+    def __init__(self, size, file_name = ''):
         self.__window = GraphWin(width = 500, height = 500) # create a window
         self.__window.setCoords(0, 0, size * 10, size * 10) # set the coordinates of the window; bottom left is (0, 0) and top right is (100, 100)
 
@@ -18,10 +18,11 @@ class maze:
         self.maze_height = size - 1 #the height is only used as height, so it's easier to make it zero indexed here
         self.maze_width = size #the width is used to calculate the middle, as such it's important we keep the original number
         #and just subtract as needed
-
-        builder = maze_builder()
-        builder.generate_maze('Maze3.txt', size, size)
-        with open('Maze3.txt', 'r') as maze_text:
+        if file_name == '':
+            builder = maze_builder()
+            builder.generate_maze('Maze3.txt', size, size)
+            file_name = 'Maze3.txt'
+        with open(file_name, 'r') as maze_text:
             y_axis = size * 10
             for row in maze_text:
                 x_axis = 0
@@ -67,10 +68,10 @@ class maze:
 
     def __check_movement_ability(self):
         current_row = self.__string_list[self.maze_height - self.player_y]
-        self.can_move_west = self.player_x > 0 and current_row[self.player_x - 1] == '0'
-        self.can_move_east = self.player_x < self.maze_width - 1 and current_row[self.player_x + 1] == '0'
-        self.can_move_north = self.player_y < self.maze_height and self.__string_list[self.maze_height - self.player_y - 1][self.player_x] == '0'
-        self.can_move_south = self.player_y > 0 and self.__string_list[self.maze_height - self.player_y + 1][self.player_x] == '0'
+        self.can_move_west = bool(self.player_x > 0 and current_row[self.player_x - 1] == '0')
+        self.can_move_east = bool(self.player_x < self.maze_width - 1 and current_row[self.player_x + 1] == '0')
+        self.can_move_north = bool(self.player_y < self.maze_height and self.__string_list[self.maze_height - self.player_y - 1][self.player_x] == '0')
+        self.can_move_south = bool(self.player_y > 0 and self.__string_list[self.maze_height - self.player_y + 1][self.player_x] == '0')
         self.has_won = self.player_x == self.maze_width // 2 and self.player_y == self.maze_height
 
     def move_north(self):
